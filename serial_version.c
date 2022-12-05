@@ -1,8 +1,8 @@
-// import random library
+// import libraries
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-
+#include <time.h>
 
 // struct for a point of n dimensions
 typedef struct {
@@ -28,7 +28,8 @@ int main(){
     // create M random points
     int M = 20;
     point *points = (point *)malloc(M*sizeof(point));
-
+    // set the seed for the random to time
+    srand(time(NULL));
     // cicle to initialize the points randomly
     for(int i=0; i<M; i++){
         points[i].x = rand()%100;

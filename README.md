@@ -7,3 +7,7 @@ TODO:
 - [x] create $M$ random points
 
 - [x] $O(n^2)$ serial version
+
+- [ ] generate $M$ random points in a file
+
+- [ ] generic function for distance
