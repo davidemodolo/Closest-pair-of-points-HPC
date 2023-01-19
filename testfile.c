@@ -66,7 +66,45 @@ int main(int argc, char* argv[]) {
     int points_per_proc = num_points / num_procs;
     int remainder = num_points % num_procs;
     int start, end;
-    /*if (rank < remainder) {
+    if (rank < remainder) {
         // Processes with rank less than remainder get one additional point
-        start = rank * (points_per_proc +
-    */
+        start = rank * (points_per_proc + 1);
+        end = start + points_per_proc;
+    } else {
+        // Processes with rank greater than or equal to remainder get the same number of points
+        start = rank * points_per_proc + remainder;
+        end = start + points_per_proc - 1;
+    }
+
+    // Allocate memory for the points that will be handled by this process
+    Point* my_points = (Point*)malloc(points_per_proc * sizeof(Point));
+    for (int i = 0; i < points_per_proc; i++) {
+        my_points[i].coordinates = (double*)malloc(points[0].num_dimensions * sizeof(double));
+    }
+
+    // Scatter the points to the other processes
+    MPI_Scatter(points, points_per_proc, MPI_DOUBLE, my_points, points_per_proc, MPI_DOUBLE, ROOT, MPI_COMM_WORLD);
+
+    // Calculate the distances between the points
+    double* distances = (double*)malloc(points_per_proc * sizeof(double));
+    for (int i = 0; i < points_per_proc; i++) {
+        distances[i] = distance(points[start + i], points[end + 1]);
+    }
+
+    // Gather the distances to the root process
+    double* all_distances = NULL;
+    if (rank == ROOT) {
+        all_distances = (double*)malloc(num_points * sizeof(double));
+    }
+    MPI_Gather(distances, points_per_proc, MPI_DOUBLE, all_distances, points_per_proc, MPI_DOUBLE, ROOT, MPI_COMM_WORLD);
+
+    // Print the distances to the root process
+    if (rank == ROOT) {
+        for (int i = 0; i < num_points; i++) {
+            printf("%lf", all_distances[i]);
+        }
+    }
+
+    MPI_Finalize();
+    return 0;
+}
