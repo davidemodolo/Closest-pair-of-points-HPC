@@ -16,3 +16,4 @@ TODO:
 - [Computer Science University of British Culumbia problem explanation](https://www.cs.ubc.ca/~liorma/cpsc320/files/closest-points.pdf)
 
 
+https://sites.cs.ucsb.edu/~suri/cs235/ClosestPair.pdf
