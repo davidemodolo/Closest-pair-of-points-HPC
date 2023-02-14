@@ -1,19 +1,17 @@
 # HPC Project - Closest Pair of Points
 
-TODO:
+This repository is a student project developed by Kevin Depedri and Davide Modolo for the "High Performance Computing for Data Science" course of the Master in Artificial Intelligent Systems at the University of Trento, a.y. 2022-2023.
 
-- [x] function for distance between two points in $k$-dimensional space: $\displaystyle\text{distance}(p_a, p_b) = \sqrt{\sum_{i=0}^{k}(a_i - b_i)^2}$
+We implemented two approaces, a *Bruteforce* one and a *Divide et Impera* one, to solve the **Closest Pair of Points** problem.
 
-- [x] create random points using `python.exe points_gen.py {n_points} {n_dimensions}` command $\to$ it saves the result in `points.txt` with `{n_points} {n_dimensions}` in the first line and every point coordinate in the following lines (one point per line)
+The repository is organized in the following way:
+- the folder `point_generator` contains the smallest set of input points, together with the python scripts to generate bigger set of input points (that we run on the cluster);
+- the folder `sequential` contains the sequential implementation of the Bruteforce and of the Divide et Impera approaches;
+- the folder `parallel` contains the parallel implementation of the two approaches (they requires the command `mpiexec` from the library `mpitch` to be run). In particular, for the Divide et Impera approach two files can be found:
+  - `parallel_recursive_short.c` shows the logic behind the algorithm from a higher level, abstracting much of what is happening in the Merge Sort and in the Divide et Impera parts of the algorithm;
+  - `parallel_recursive_long.c`  shows all the logic behind all the algorithm in a single file, useful to understand in an easier way the communications between processes;
+- In the folder `data` it is possible to visualize the data of the runs inserted in tables and plotted.
 
-- [] $O(n^2)$ serial version [IMPROVE READABILITY]
----
-**Resources:**
-- [Wikipedia probem description](https://en.wikipedia.org/wiki/Closest_pair_of_points_problem)
-    
-- $O(n\log n)$ [CPP linear implementation](https://www.geeksforgeeks.org/closest-pair-of-points-onlogn-implementation/): sort points based on a dimension (e.g. `x`)
+All the experiments have been ran on a HPC-cluster, but the code can also be tested on your own computer exploiting the cores and threads of your own CPU. This readme file presents all the steps to follow to correctly test the code on your machine.
 
-- [Computer Science University of British Culumbia problem explanation](https://www.cs.ubc.ca/~liorma/cpsc320/files/closest-points.pdf)
-
-
-https://sites.cs.ucsb.edu/~suri/cs235/ClosestPair.pdf
+Details about implementation and results can be found in the `Closest_Pair_of_Points_Report.pdf` report file.
