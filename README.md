@@ -1,5 +1,7 @@
 # HPC Project - Closest Pair of Points
 
+Copied from [Kevin Depedri's GitHub account](https://github.com/KevinDepedri/MPI-Parallel-Closest-Pair-of-Points) since we worked together on its repository.
+
 This repository is a student project developed by Kevin Depedri and Davide Modolo for the "High Performance Computing for Data Science" course of the Master in Artificial Intelligent Systems at the University of Trento, a.y. 2022-2023.
 
 We implemented two approaces, a *Bruteforce* one and a *Divide et Impera* one, to solve the **Closest Pair of Points** problem.
